@@ -1,10 +1,7 @@
 'use client'
 
 import { SearchIcon } from '@/components/icons/search-icon'
-
-interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  onSearch?: (value: string) => void
-}
+import type { SearchInputProps } from '@/types/components'
 
 export function SearchInput({ onSearch, ...props }: SearchInputProps) {
   return (
