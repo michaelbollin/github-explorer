@@ -3,7 +3,7 @@
 import { SearchIcon } from '@/components/icons/search-icon'
 import type { SearchInputProps } from '@/types/components'
 
-export function SearchInput({ onSearch, ...props }: SearchInputProps) {
+export function SearchInput({ ...props }: SearchInputProps) {
   return (
     <div className="relative">
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

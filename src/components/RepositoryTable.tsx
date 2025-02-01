@@ -2,15 +2,15 @@ import type { Repository } from '@/types/github'
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
 import type { RepositoryTableProps } from '@/types/components'
 
-export function RepositoryTable({ repositories }: RepositoryTableProps) {
+export function RepositoryTable({ repositories, total }: RepositoryTableProps) {
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead className="hidden md:table-cell">Owner</TableHead>
-          <TableHead className="text-right md:text-left">Stars</TableHead>
-          <TableHead className="hidden md:table-cell">Created</TableHead>
+          <TableHead total={total}>Name</TableHead>
+          <TableHead className="hidden md:table-cell" total={total}>Owner</TableHead>
+          <TableHead className="text-right md:text-left" total={total}>Stars</TableHead>
+          <TableHead className="hidden md:table-cell" total={total}>Created</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

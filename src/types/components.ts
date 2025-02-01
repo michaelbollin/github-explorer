@@ -9,6 +9,7 @@ export interface TopBarProps {
 
 export interface RepositoryTableProps {
   repositories: Repository[]
+  total: number
 }
 
 export interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {

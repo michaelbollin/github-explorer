@@ -39,7 +39,7 @@ export default function Home() {
             <div className="text-red-500">Error: {(error as Error).message}</div>
           </div>
         )}
-        {data?.items && <RepositoryTable repositories={data.items} />}
+        {data?.items && <RepositoryTable repositories={data.items} total={data.total_count} />}
       </div>
     </main>
   )

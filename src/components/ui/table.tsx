@@ -1,4 +1,6 @@
 import type { TableProps, TableHeadProps, TableCellProps } from '@/types/table'
+import { ChevronDownIcon, ChevronUpIcon } from '@/components/icons/sort-icons'
+import { SEARCH_CONFIG } from '@/config/constants'
 
 export function Table({ children }: TableProps) {
   return (
@@ -20,13 +22,38 @@ export function TableRow({ children }: TableProps) {
   return <tr className="hover:bg-gray-50">{children}</tr>
 }
 
-export function TableHead({ children, className = '', ...props }: TableHeadProps) {
+export function TableHead({ 
+  children, 
+  className,
+  total,
+  ...props 
+}: { 
+  children: React.ReactNode
+  total?: number
+  className?: string
+}) {
+  const shouldShowSort = total !== undefined && total <= SEARCH_CONFIG.MAX_RESULTS
+
   return (
-    <th
-      className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${className}`}
+    <th 
+      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
       {...props}
     >
-      {children}
+      <div className="flex items-center gap-1">
+        {children}
+        {shouldShowSort && (
+          <>
+            <ChevronUpIcon 
+              className="w-4 h-4 text-gray-400" 
+              aria-label="sort"
+            />
+            <ChevronDownIcon 
+              className="w-4 h-4 text-gray-400" 
+              aria-label="sort"
+            />
+          </>
+        )}
+      </div>
     </th>
   )
 }
