@@ -6,6 +6,9 @@ import { SearchInput } from '@/components/ui/search-input'
 import type { OrderOption } from '@/types/github'
 import { useSearch } from '@/hooks/useSearch'
 import type { TopBarProps } from '@/types/components'
+import { SEARCH_CONFIG } from '@/config/constants'
+import { InfoIcon } from '@/components/icons/info-icon'
+import { Tooltip } from '@/components/ui/tooltip'
 
 const orderOptions: OrderOption[] = [
   { label: 'Most Popular', field: 'stars', direction: 'desc' },
@@ -14,10 +17,12 @@ const orderOptions: OrderOption[] = [
   { label: 'Oldest Updated', field: 'updated', direction: 'asc' },
 ]
 
-export function TopBar({ onSearch, onOrderChange, initialOrder }: TopBarProps) {
+export function TopBar({ onSearch, onOrderChange, initialOrder, totalCount }: TopBarProps) {
   const { q } = useSearch()
   const [searchInput, setSearchInput] = useState(q)
   const debouncedSearch = useDebounce(searchInput)
+
+  console.log(totalCount,"totalCount")
 
   useEffect(() => {
     if (debouncedSearch.length >= 3) {
@@ -29,19 +34,30 @@ export function TopBar({ onSearch, onOrderChange, initialOrder }: TopBarProps) {
     <header className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-1 max-w-[60%] md:max-w-lg">
+          <div className="flex-1 max-w-[60%] md:max-w-lg relative">
             <label htmlFor="search" className="sr-only">
               Search repositories
             </label>
-            <SearchInput
-              id="search"
-              name="search"
-              placeholder="Search repositories..."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              aria-label="Search GitHub repositories"
-              role="searchbox"
-            />
+            <div className="flex items-center w-full">
+              <div className="flex-1 min-w-0">
+                <SearchInput
+                  id="search"
+                  name="search"
+                  placeholder="Search repositories..."
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  aria-label="Search GitHub repositories"
+                  role="searchbox"
+                />
+              </div>
+              {totalCount && totalCount > SEARCH_CONFIG.MAX_TOTAL_COUNT && (
+                <div className="flex-none w-8 flex items-center justify-center">
+                  <Tooltip content="GitHub returns only 4000 elements, please narrow down your query">
+                    <InfoIcon className="h-5 w-5 text-gray-400" />
+                  </Tooltip>
+                </div>
+              )}
+            </div>
           </div>
           <div className="ml-2 md:ml-4 flex items-center">
             <div className="flex items-center">

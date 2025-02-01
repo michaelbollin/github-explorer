@@ -4,6 +4,7 @@ export const SEARCH_CONFIG = {
   MIN_CHARS: 3,
   DEBOUNCE_DELAY: 300,
   MAX_RESULTS: 50,
+  MAX_TOTAL_COUNT: 4000,
 } as const
 
 export const QUERY_CONFIG = {

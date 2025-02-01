@@ -6,6 +6,7 @@ export interface TopBarProps {
   onSearch: (query: string) => void
   onOrderChange: (option: OrderOption) => void
   initialOrder: OrderOption
+  totalCount?: number
 }
 
 export interface RepositoryTableProps {
@@ -21,4 +22,10 @@ export interface RepositoryTableProps {
 
 export interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onSearch?: (value: string) => void
+}
+
+export interface PaginationProps {
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
 } 

@@ -29,6 +29,7 @@ export default function Home() {
         onSearch={setQuery}
         onOrderChange={handleOrderChange}
         initialOrder={currentOrder}
+        totalCount={data?.total_count}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {isLoading && (
