@@ -14,19 +14,34 @@ const DEFAULT_ORDER: OrderOption = {
 };
 
 export default function Home() {
-  const { q, order, setQuery } = useSearch();
+  const { q, order, page, setQuery } = useSearch();
   const currentOrder = order || DEFAULT_ORDER;
-  const { data, isLoading, error } = useRepositories(q, currentOrder);
+  const currentPage = page || 1;
+  const { data, isLoading, error } = useRepositories(q, currentOrder, currentPage);
   const { sortedItems, sort, handleSort } = useClientSort(data?.items);
 
   const handleOrderChange = (newOrder: OrderOption) => {
-    setQuery(q, newOrder);
+    if (newOrder.field !== currentOrder.field || newOrder.direction !== currentOrder.direction) {
+      setQuery(q, newOrder, 1);
+    }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage !== currentPage) {
+      setQuery(q, currentOrder, newPage);
+    }
+  };
+
+  const handleSearch = (newQuery: string) => {
+    if (newQuery !== q) {
+      setQuery(newQuery, currentOrder, 1);
+    }
   };
 
   return (
     <main className="min-h-screen bg-gray-50">
       <TopBar
-        onSearch={setQuery}
+        onSearch={handleSearch}
         onOrderChange={handleOrderChange}
         initialOrder={currentOrder}
         totalCount={data?.total_count}
@@ -53,6 +68,8 @@ export default function Home() {
             clientSortDirection={sort?.direction}
             sortField={currentOrder.field}
             sortDirection={currentOrder.direction}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
           />
         )}
       </div>

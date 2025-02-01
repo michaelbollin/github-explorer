@@ -18,6 +18,8 @@ export interface RepositoryTableProps {
   clientSortField?: ClientSortField
   clientSortDirection?: 'asc' | 'desc'
   onClientSort?: (field: ClientSortField) => void
+  currentPage: number
+  onPageChange: (page: number) => void
 }
 
 export interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
