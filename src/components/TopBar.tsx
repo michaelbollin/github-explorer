@@ -40,6 +40,7 @@ export function TopBar({ onSearch, onOrderChange, initialOrder }: TopBarProps) {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               aria-label="Search GitHub repositories"
+              role="searchbox"
             />
           </div>
           <div className="ml-2 md:ml-4 flex items-center">
