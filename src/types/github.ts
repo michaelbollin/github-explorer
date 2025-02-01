@@ -22,4 +22,11 @@ export interface OrderOption {
   label: string
   field: OrderField
   direction: OrderDirection
+}
+
+export type ClientSortField = 'name' | 'owner' | 'stars' | 'created'
+
+export interface ClientSort {
+  field: ClientSortField
+  direction: 'asc' | 'desc'
 } 

@@ -1,5 +1,6 @@
 import type { OrderOption } from './github'
 import type { Repository } from './github'
+import type { ClientSortField } from './github'
 
 export interface TopBarProps {
   onSearch: (query: string) => void
@@ -10,6 +11,12 @@ export interface TopBarProps {
 export interface RepositoryTableProps {
   repositories: Repository[]
   total: number
+  sortField?: string
+  sortDirection?: 'asc' | 'desc'
+  onSort?: (field: string) => void
+  clientSortField?: ClientSortField
+  clientSortDirection?: 'asc' | 'desc'
+  onClientSort?: (field: ClientSortField) => void
 }
 
 export interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {

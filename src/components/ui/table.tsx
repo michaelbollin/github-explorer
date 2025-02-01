@@ -26,30 +26,44 @@ export function TableHead({
   children, 
   className,
   total,
+  sortField,
+  sortDirection,
+  onSort,
+  clientSortField,
+  clientSortDirection,
+  onClientSort,
   ...props 
-}: { 
-  children: React.ReactNode
-  total?: number
-  className?: string
-}) {
+}: TableHeadProps) {
   const shouldShowSort = total !== undefined && total <= SEARCH_CONFIG.MAX_RESULTS
+  const isCurrentField = clientSortField === sortField
 
   return (
     <th 
       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
       {...props}
     >
-      <div className="flex items-center gap-1">
+      <div 
+        className="flex items-center gap-1 cursor-pointer" 
+        onClick={() => onClientSort?.(sortField!)}
+      >
         {children}
         {shouldShowSort && (
           <>
             <ChevronUpIcon 
-              className="w-4 h-4 text-gray-400" 
-              aria-label="sort"
+              className={`w-5 h-5 ${
+                isCurrentField && clientSortDirection === 'asc' 
+                  ? 'text-black scale-110' 
+                  : 'text-gray-200'
+              }`}
+              aria-label="sort ascending"
             />
             <ChevronDownIcon 
-              className="w-4 h-4 text-gray-400" 
-              aria-label="sort"
+              className={`w-5 h-5 ${
+                isCurrentField && clientSortDirection === 'desc' 
+                  ? 'text-black scale-110' 
+                  : 'text-gray-200'
+              }`}
+              aria-label="sort descending"
             />
           </>
         )}

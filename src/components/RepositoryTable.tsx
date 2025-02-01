@@ -2,15 +2,54 @@ import type { Repository } from '@/types/github'
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
 import type { RepositoryTableProps } from '@/types/components'
 
-export function RepositoryTable({ repositories, total }: RepositoryTableProps) {
+export function RepositoryTable({ repositories, total, onSort, sortField, sortDirection, onClientSort, clientSortField, clientSortDirection }: RepositoryTableProps) {
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead total={total}>Name</TableHead>
-          <TableHead className="hidden md:table-cell" total={total}>Owner</TableHead>
-          <TableHead className="text-right md:text-left" total={total}>Stars</TableHead>
-          <TableHead className="hidden md:table-cell" total={total}>Created</TableHead>
+          <TableHead 
+            total={total} 
+            sortField="name"
+            sortDirection={sortField === 'name' ? sortDirection : undefined}
+            onSort={onSort}
+            clientSortField={clientSortField}
+            clientSortDirection={clientSortDirection}
+            onClientSort={onClientSort}
+          >
+            Name
+          </TableHead>
+          <TableHead 
+            className="hidden md:table-cell" 
+            total={total}
+            sortField="owner"
+            sortDirection={sortField === 'owner' ? sortDirection : undefined}
+            onSort={onSort}
+            clientSortField={clientSortField}
+            clientSortDirection={clientSortDirection}
+            onClientSort={onClientSort}
+          >
+            Owner
+          </TableHead>
+          <TableHead 
+            className="text-right md:text-left" 
+            total={total}
+            sortField="stars"
+            clientSortField={clientSortField}
+            clientSortDirection={clientSortDirection}
+            onClientSort={onClientSort}
+          >
+            Stars
+          </TableHead>
+          <TableHead 
+            className="hidden md:table-cell" 
+            total={total}
+            sortField="created"
+            clientSortField={clientSortField}
+            clientSortDirection={clientSortDirection}
+            onClientSort={onClientSort}
+          >
+            Created
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
