@@ -29,4 +29,13 @@ export type ClientSortField = 'name' | 'owner' | 'stars' | 'created'
 export interface ClientSort {
   field: ClientSortField
   direction: 'asc' | 'desc'
+}
+
+export type SortField = 'stars' | 'updated' | 'name' | 'owner' | 'created'
+export type SortDirection = 'asc' | 'desc'
+
+export interface Sort {
+  field: SortField
+  direction: SortDirection
+  label: string
 } 
