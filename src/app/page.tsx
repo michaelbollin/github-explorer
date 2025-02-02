@@ -6,6 +6,7 @@ import { useRepositories } from '@/hooks/useRepositories';
 import { RepositoryTable } from '@/components/RepositoryTable';
 import type { OrderOption } from '@/types/github';
 import { useClientSort } from '@/hooks/useClientSort';
+import { TableSkeleton } from '@/components/TableSkeleton'
 
 const DEFAULT_ORDER: OrderOption = {
   label: 'Stars (High to Low)',
@@ -47,11 +48,6 @@ export default function Home() {
         totalCount={data?.total_count}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {isLoading && (
-          <div className="flex justify-center py-8">
-            <div className="text-gray-500">Loading...</div>
-          </div>
-        )}
         {error && (
           <div className="flex justify-center py-8">
             <div className="text-red-500">
@@ -59,7 +55,9 @@ export default function Home() {
             </div>
           </div>
         )}
-        {data?.items && (
+        {isLoading ? (
+          <TableSkeleton />
+        ) : data?.items && (
           <RepositoryTable
             repositories={sortedItems || []}
             total={data.total_count}
