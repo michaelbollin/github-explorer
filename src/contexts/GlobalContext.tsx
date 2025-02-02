@@ -44,21 +44,23 @@ export function GlobalProvider({
     },
     setQuery: (query: string) => {
       const params = new URLSearchParams(searchParams)
+
       const currentQuery = params.get('q')
-      
+
       if (currentQuery !== query) {
         params.delete('page')
       }
-      
+
       if (query) params.set('q', query)
       else params.delete('q')
       router.replace(`/?${params.toString()}`)
     },
     setSort: (sort: Sort) => {
       const params = new URLSearchParams(searchParams)
+
       const currentSort = params.get('sort')
       const currentOrder = params.get('order')
-      
+
       if (currentSort !== sort.field || currentOrder !== sort.direction) {
         params.delete('page')
       }
@@ -67,6 +69,9 @@ export function GlobalProvider({
       params.set('order', sort.direction)
       router.replace(`/?${params.toString()}`)
       setClientSort(undefined)
+    },
+    clear: () => {
+      router.replace('/?')
     }
   }
 

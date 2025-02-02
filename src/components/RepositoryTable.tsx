@@ -21,10 +21,10 @@ export function RepositoryTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead sortField="name">Name</TableHead>
-            <TableHead sortField="owner">Owner</TableHead>
-            <TableHead sortField="stars" className="text-right">Stars</TableHead>
-            <TableHead sortField="created">Created</TableHead>
+            <TableHead className="w-1/2" sortField="name">Name</TableHead>
+            <TableHead className="w-[15%]" sortField="owner">Owner</TableHead>
+            <TableHead className="w-[20%]" sortField="stars">Stars</TableHead>
+            <TableHead className="w-[15%]" sortField="created">Created</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

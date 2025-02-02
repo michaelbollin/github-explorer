@@ -11,30 +11,50 @@ export function TableSkeleton() {
       >
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead className="hidden md:table-cell">Owner</TableHead>
-            <TableHead className="text-right md:text-left">Stars</TableHead>
-            <TableHead className="hidden md:table-cell">Created</TableHead>
+            <TableHead className="w-1/2 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Repository
+            </TableHead>
+            <TableHead className="w-[15%] px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Stars
+            </TableHead>
+            <TableHead className="w-[20%] px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Language
+            </TableHead>
+            <TableHead className="w-[15%] px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Updated
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {[...Array(10)].map((_, i) => (
             <TableRow key={i}>
-              <TableCell aria-busy="true">
-                <Skeleton className="h-4 w-48" aria-label="Loading name..." />
-                <div className="md:hidden mt-1 space-y-1">
-                  <Skeleton className="h-3 w-24" aria-label="Loading owner..." />
-                  <Skeleton className="h-3 w-32" aria-label="Loading date..." />
+              <TableCell className="px-6 py-4 whitespace-nowrap">
+                <div className="flex items-center">
+                  <div className="truncate max-w-md">
+                    <Skeleton className="h-4 w-48" aria-label="Loading name..." />
+                  </div>
                 </div>
               </TableCell>
-              <TableCell className="hidden md:table-cell" aria-busy="true">
-                <Skeleton className="h-4 w-24" aria-label="Loading owner..." />
+              <TableCell className="px-6 py-4 whitespace-nowrap">
+                <div className="flex items-center">
+                  <div className="truncate max-w-md">
+                    <Skeleton className="h-4 w-12 ml-auto md:ml-0" aria-label="Loading stars..." />
+                  </div>
+                </div>
               </TableCell>
-              <TableCell className="text-right md:text-left" aria-busy="true">
-                <Skeleton className="h-4 w-12 ml-auto md:ml-0" aria-label="Loading stars..." />
+              <TableCell className="px-6 py-4 whitespace-nowrap">
+                <div className="flex items-center">
+                  <div className="truncate max-w-md">
+                    <Skeleton className="h-4 w-24" aria-label="Loading language..." />
+                  </div>
+                </div>
               </TableCell>
-              <TableCell className="hidden md:table-cell" aria-busy="true">
-                <Skeleton className="h-4 w-24" aria-label="Loading date..." />
+              <TableCell className="px-6 py-4 whitespace-nowrap">
+                <div className="flex items-center">
+                  <div className="truncate max-w-md">
+                    <Skeleton className="h-4 w-24" aria-label="Loading date..." />
+                  </div>
+                </div>
               </TableCell>
             </TableRow>
           ))}
