@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub Repository Explorer
 
-## Getting Started
+A web application for searching public GitHub repositories.
 
-First, run the development server:
+## Installation
 
 ```bash
-npm run dev
-# or
+# Install dependencies
+yarn install
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Available Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Development
+yarn dev         # Start development server
+yarn test        # Run tests
+yarn test:e2e    # Run E2E tests with 
+yarn lint        # Run ESLint
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Production
+yarn build       # Create production build
+```
 
-## Learn More
+### Configuration
+There is constants.ts file with the configuration of the search and sorting options.
 
-To learn more about Next.js, take a look at the following resources:
+## Architecture Decisions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js**: not necessary at this project scope as not using SSR/SSG here, but chosen for ease of development and extending with the backend features in the future
+- **React Query**: Handles data fetching, caching, and synchronization
+- **TailwindCSS**: for styling, with newly published v4
 
-## Deploy on Vercel
+### Key Technical Choices
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **API Implementation**
+   - Using public access to Github API
+2. **Sorting**:
+   - Client-side sorting for small result sets
+   - Server-side sorting for larger datasets
+3. **Testing**:
+   - Jest for unit tests
+   - Playwright for E2E tests
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Known Limitations
+
+1. **GitHub API Rate Limits**
+   - Unauthenticated: 60 requests/hour
+   - Consider implementing server API route with the token to increase the rate limit to 5000
+
+2. **Search Results**
+   - Even if there are more results, Github truncates the result to 4000
+   - Added tooltip to inform the user about the limit
+
+
+## Future Improvements
+
+1. Advanced filtering options
+2. Adding backend part (secret token embedding and rate limit increase)
+3. Adding redis on the backend to cache the results
+
+## Contributing
+
+1. Create your feature branch (`git checkout -b feature/amazing-feature`)
+2. Commit your changes (`git commit -m 'Add amazing feature'`)
+3. Push to the branch (`git push origin feature/amazing-feature`)
+4. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
