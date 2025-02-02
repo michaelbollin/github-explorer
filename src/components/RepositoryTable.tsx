@@ -39,18 +39,14 @@ export function RepositoryTable({
                 >
                   {repo.name}
                 </a>
-                <div className="md:hidden mt-1 text-gray-500 space-y-1">
-                  <div>by {repo.owner.login}</div>
-                  <div>{new Date(repo.created_at).toLocaleDateString()}</div>
-                </div>
               </TableCell>
-              <TableCell className="hidden md:table-cell text-gray-900">
+              <TableCell>
                 {repo.owner.login}
               </TableCell>
-              <TableCell className="text-right md:text-left text-gray-500 whitespace-nowrap">
+              <TableCell>
                 {repo.stargazers_count.toLocaleString()}
               </TableCell>
-              <TableCell className="hidden md:table-cell text-gray-500 whitespace-nowrap">
+              <TableCell>
                 {new Date(repo.created_at).toLocaleDateString()}
               </TableCell>
             </TableRow>
