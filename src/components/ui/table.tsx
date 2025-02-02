@@ -36,7 +36,7 @@ export function TableHead({
 }) {
   const { clientSort, setClientSort, totalCount } = useGlobalContext()
   const isCurrentField = clientSort?.field === sortField
-  const canSort = totalCount !== undefined && totalCount <= SEARCH_CONFIG.MAX_TOTAL_COUNT
+  const canSort = totalCount !== undefined && totalCount <= SEARCH_CONFIG.MAX_RESULTS
 
   return (
     <th 
