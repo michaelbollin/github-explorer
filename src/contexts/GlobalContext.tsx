@@ -20,13 +20,17 @@ interface GlobalContextType {
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined)
 
+interface GlobalProviderProps {
+  children: ReactNode
+  defaultSort: Sort
+  defaultQuery?: string
+  defaultTotalCount?: number
+}
+
 export function GlobalProvider({ 
   children, 
-  defaultSort 
-}: { 
-  children: ReactNode
-  defaultSort: Sort 
-}) {
+  defaultSort,
+}: GlobalProviderProps) {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [clientSort, setClientSort] = useState<Sort>()

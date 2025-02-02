@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import { TableSkeleton } from '@/components/TableSkeleton';
-import { TestWrapper } from '@/__tests__/setup/test-utils';
+import { TestWrapper } from '../setup/test-wrapper';
 
 describe('TableSkeleton', () => {
   test('renders accessible loading table structure', () => {
