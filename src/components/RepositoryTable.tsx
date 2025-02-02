@@ -1,22 +1,28 @@
-import type { Repository } from '@/types/github'
+import type { Repository, SortField } from '@/types/github'
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
-import type { RepositoryTableProps } from '@/types/components'
 import { Pagination } from '@/components/ui/pagination'
 import { SEARCH_CONFIG } from '@/config/constants'
+import { useGlobalContext } from '@/contexts/GlobalContext'
 
 export function RepositoryTable({ 
   repositories, 
-  total, 
-  onClientSort, 
-  clientSortField,
-  clientSortDirection,
-  sortField,
-  sortDirection,
-  currentPage,
-  onPageChange
-}: RepositoryTableProps) {
-  const effectiveTotal = Math.min(total, SEARCH_CONFIG.MAX_TOTAL_COUNT); // total_count or 4000
-  const totalPages = Math.ceil(effectiveTotal / SEARCH_CONFIG.MAX_RESULTS);
+  total
+}: { 
+  repositories: Repository[]
+  total: number 
+}) {
+  const { page, clientSort, setClientSort, setPage } = useGlobalContext()
+
+  const handleClientSort = (field: SortField) => {
+    setClientSort({
+      field,
+      direction: clientSort?.field === field && clientSort.direction === 'desc' ? 'asc' : 'desc',
+      label: field
+    })
+  }
+
+  const effectiveTotal = Math.min(total, SEARCH_CONFIG.MAX_TOTAL_COUNT)
+  const totalPages = Math.ceil(effectiveTotal / SEARCH_CONFIG.MAX_RESULTS)
 
   return (
     <div>
@@ -26,10 +32,10 @@ export function RepositoryTable({
             <TableHead 
               total={total} 
               sortField="name"
-              sortDirection={sortField === 'name' ? sortDirection : undefined}
-              clientSortField={clientSortField}
-              clientSortDirection={clientSortDirection}
-              onClientSort={onClientSort}
+              sortDirection={clientSort?.field === 'name' ? clientSort.direction : undefined}
+              clientSortField={clientSort?.field}
+              clientSortDirection={clientSort?.direction}
+              onClientSort={handleClientSort}
             >
               Name
             </TableHead>
@@ -37,10 +43,10 @@ export function RepositoryTable({
               className="hidden md:table-cell" 
               total={total}
               sortField="owner"
-              sortDirection={sortField === 'owner' ? sortDirection : undefined}
-              clientSortField={clientSortField}
-              clientSortDirection={clientSortDirection}
-              onClientSort={onClientSort}
+              sortDirection={clientSort?.field === 'owner' ? clientSort.direction : undefined}
+              clientSortField={clientSort?.field}
+              clientSortDirection={clientSort?.direction}
+              onClientSort={handleClientSort}
             >
               Owner
             </TableHead>
@@ -48,9 +54,9 @@ export function RepositoryTable({
               className="text-right md:text-left" 
               total={total}
               sortField="stars"
-              clientSortField={clientSortField}
-              clientSortDirection={clientSortDirection}
-              onClientSort={onClientSort}
+              clientSortField={clientSort?.field}
+              clientSortDirection={clientSort?.direction}
+              onClientSort={handleClientSort}
             >
               Stars
             </TableHead>
@@ -58,9 +64,9 @@ export function RepositoryTable({
               className="hidden md:table-cell" 
               total={total}
               sortField="created"
-              clientSortField={clientSortField}
-              clientSortDirection={clientSortDirection}
-              onClientSort={onClientSort}
+              clientSortField={clientSort?.field}
+              clientSortDirection={clientSort?.direction}
+              onClientSort={handleClientSort}
             >
               Created
             </TableHead>
@@ -98,9 +104,9 @@ export function RepositoryTable({
       </Table>
       {totalPages > 1 && (
         <Pagination 
-          currentPage={currentPage} 
+          currentPage={page} 
           totalPages={totalPages}
-          onPageChange={onPageChange}
+          onPageChange={setPage}
         />
       )}
     </div>

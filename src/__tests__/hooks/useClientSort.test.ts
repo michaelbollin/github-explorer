@@ -45,14 +45,18 @@ describe('useClientSort', () => {
     })
 
     expect(result.current.sortedItems?.[0].name).toBe('quantum-pizza-generator')
-    expect(result.current.sort).toEqual({ field: 'name', direction: 'desc' })
+    expect(result.current.sort).toEqual({ 
+      field: 'name', 
+      direction: 'desc',
+      label: 'name' 
+    })
 
     act(() => {
       result.current.handleSort('name')
     })
 
     expect(result.current.sortedItems?.[0].name).toBe('dancing-goopher')
-    expect(result.current.sort).toEqual({ field: 'name', direction: 'asc' })
+    expect(result.current.sort).toEqual({ field: 'name', direction: 'asc', label: 'name' })
   })
 
   it('sorts by stars', () => {
@@ -63,7 +67,11 @@ describe('useClientSort', () => {
     })
 
     expect(result.current.sortedItems?.[0].stargazers_count).toBe(20)
-    expect(result.current.sort).toEqual({ field: 'stars', direction: 'desc' })
+    expect(result.current.sort).toEqual({ 
+      field: 'stars', 
+      direction: 'desc',
+      label: 'stars' 
+    })
   })
 
   it('toggles sort direction when clicking same field', () => {
@@ -89,6 +97,10 @@ describe('useClientSort', () => {
       result.current.handleSort('stars') // new field
     })
 
-    expect(result.current.sort).toEqual({ field: 'stars', direction: 'desc' })
+    expect(result.current.sort).toEqual({ 
+      field: 'stars', 
+      direction: 'desc',
+      label: 'stars' 
+    })
   })
 }) 

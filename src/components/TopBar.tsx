@@ -3,24 +3,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDebounce } from '@/hooks/useDebounce'
 import { SearchInput } from '@/components/ui/search-input'
-import type { OrderOption } from '@/types/github'
-import { useSearch } from '@/hooks/useSearch'
-import type { TopBarProps } from '@/types/components'
+import { SERVER_SORT_OPTIONS } from '@/config/constants'
 import { SEARCH_CONFIG } from '@/config/constants'
 import { InfoIcon } from '@/components/icons/info-icon'
 import { Tooltip } from '@/components/ui/tooltip'
 import { useSearchKeyboard } from '@/hooks/useKeyboardNavigation'
+import { useGlobalContext } from '@/contexts/GlobalContext'
 
-const orderOptions: OrderOption[] = [
-  { label: 'Most Popular', field: 'stars', direction: 'desc' },
-  { label: 'Least Popular', field: 'stars', direction: 'asc' },
-  { label: 'Recently Updated', field: 'updated', direction: 'desc' },
-  { label: 'Oldest Updated', field: 'updated', direction: 'asc' },
-]
-
-export function TopBar({ onSearch, onOrderChange, initialOrder, totalCount }: TopBarProps) {
-  const { q } = useSearch()
-  const [searchInput, setSearchInput] = useState(q)
+export function TopBar({ totalCount }: { totalCount?: number }) {
+  const { query, sort, setQuery, setSort } = useGlobalContext()
+  const [searchInput, setSearchInput] = useState(query)
   const debouncedSearch = useDebounce(searchInput)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -28,9 +20,9 @@ export function TopBar({ onSearch, onOrderChange, initialOrder, totalCount }: To
 
   useEffect(() => {
     if (debouncedSearch.length >= 3) {
-      onSearch(debouncedSearch)
+      setQuery(debouncedSearch)
     }
-  }, [debouncedSearch, onSearch])
+  }, [debouncedSearch, setQuery])
 
   useSearchKeyboard({
     onFocus: () => searchInputRef.current?.focus()
@@ -75,12 +67,12 @@ export function TopBar({ onSearch, onOrderChange, initialOrder, totalCount }: To
                 id="order"
                 className="block w-32 md:w-48 pl-2 md:pl-3 pr-6 md:pr-10 py-2 text-xs md:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 onChange={(e) => {
-                  const option = orderOptions[e.target.selectedIndex]
-                  onOrderChange(option)
+                  const option = SERVER_SORT_OPTIONS[e.target.selectedIndex]
+                  setSort(option)
                 }}
-                value={`${initialOrder.field}-${initialOrder.direction}`}
+                value={`${sort.field}-${sort.direction}`}
               >
-                {orderOptions.map((option) => (
+                {SERVER_SORT_OPTIONS.map((option) => (
                   <option key={`${option.field}-${option.direction}`} value={`${option.field}-${option.direction}`}>
                     {option.label}
                   </option>
