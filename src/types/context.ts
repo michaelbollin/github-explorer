@@ -11,4 +11,5 @@ export interface GlobalContextType {
   setQuery: (query: string) => void
   setSort: (sort: Sort) => void
   setTotalCount: (count: number) => void
+  clear: () => void
 } 

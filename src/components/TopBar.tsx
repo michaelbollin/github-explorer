@@ -9,20 +9,24 @@ import { InfoIcon } from '@/components/icons/info-icon'
 import { Tooltip } from '@/components/ui/tooltip'
 import { useSearchKeyboard } from '@/hooks/useKeyboardNavigation'
 import { useGlobalContext } from '@/contexts/GlobalContext'
+import { useRouter } from 'next/navigation'
 
 export function TopBar() {
-  const { query, sort, totalCount, setQuery, setSort } = useGlobalContext()
+  const { query, sort, totalCount, setQuery, setSort, clear } = useGlobalContext()
   const [searchInput, setSearchInput] = useState(query)
   const debouncedSearch = useDebounce(searchInput)
   const searchInputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
 
   console.log(totalCount,"totalCount")
 
   useEffect(() => {
     if (debouncedSearch.length >= 3) {
       setQuery(debouncedSearch)
+    } else if (debouncedSearch.length === 0) {
+      clear()
     }
-  }, [debouncedSearch, setQuery])
+  }, [debouncedSearch, setQuery, clear])
 
   useSearchKeyboard({
     onFocus: () => searchInputRef.current?.focus()
