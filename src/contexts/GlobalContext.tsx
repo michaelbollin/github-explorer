@@ -2,15 +2,15 @@
 
 import { createContext, useContext, ReactNode, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import type { Sort, SortField } from '@/types/github'
+import type { Sort, SortField, ClientSort } from '@/types/github'
 import { useRouter } from 'next/navigation'
 
 interface GlobalContextType {
   query: string
   page: number
   sort: Sort 
-  clientSort?: Sort
-  setClientSort: (sort: Sort) => void
+  clientSort?: ClientSort
+  setClientSort: (sort: ClientSort) => void
   setPage: (page: number) => void
   setQuery: (query: string) => void
   setSort: (sort: Sort) => void
@@ -18,16 +18,10 @@ interface GlobalContextType {
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined)
 
-export function GlobalProvider({ 
-  children, 
-  defaultSort 
-}: { 
-  children: ReactNode
-  defaultSort: Sort 
-}) {
+export function GlobalProvider({ children, defaultSort }: { children: ReactNode, defaultSort: Sort }) {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const [clientSort, setClientSort] = useState<Sort>()
+  const [clientSort, setClientSort] = useState<ClientSort>()
 
   const value = {
     query: searchParams.get('q') || '',

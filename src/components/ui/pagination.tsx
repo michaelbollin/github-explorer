@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import type { PaginationProps } from '@/types/components'
 import { usePaginationKeyboard } from '@/hooks/useKeyboardNavigation'
 

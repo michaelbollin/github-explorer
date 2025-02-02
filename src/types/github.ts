@@ -15,18 +15,27 @@ export interface SearchResponse {
   items: Repository[]
 }
 
-export type OrderField = 'stars' | 'updated'
-export type OrderDirection = 'asc' | 'desc'
 
-export interface OrderOption {
+export type ServerSortField = 'stars' | 'updated'
+export type SortDirection = 'asc' | 'desc'
+
+export interface ServerSort {
+  field: ServerSortField
+  direction: SortDirection
   label: string
-  field: OrderField
-  direction: OrderDirection
 }
 
 export type ClientSortField = 'name' | 'owner' | 'stars' | 'created'
 
 export interface ClientSort {
   field: ClientSortField
-  direction: 'asc' | 'desc'
-} 
+  direction: SortDirection
+}
+
+export type SortField = ServerSortField | ClientSortField
+
+export interface Sort {
+  field: SortField
+  direction: SortDirection
+  label: string
+}
