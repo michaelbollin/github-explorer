@@ -1,7 +1,4 @@
-interface EmptyStateProps {
-  type: 'initial' | 'no-results'
-  searchTerm?: string
-}
+import { EmptyStateProps } from '@/types/components'
 
 export function EmptyState({ type, searchTerm }: EmptyStateProps) {
   if (type === 'initial') {
