@@ -1,5 +1,5 @@
 {
-  "buildCommand": "NODE_ENV=testyarn test && yarn test:e2e && yarn build",
+  "buildCommand": "NODE_ENV=test yarn test && yarn test:e2e && yarn build",
   "devCommand": "yarn dev",
   "installCommand": "yarn install",
   "framework": "nextjs",
