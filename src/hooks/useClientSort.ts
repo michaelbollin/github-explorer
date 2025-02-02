@@ -1,41 +1,25 @@
-import { useState, useMemo } from 'react'
-import type { Repository, Sort, SortField } from '@/types/github'
+import { useMemo } from 'react'
+import type { Repository, Sort } from '@/types/github'
 
-export function useClientSort(items: Repository[] | undefined) {
-  const [sort, setSort] = useState<Sort>();
+export function useClientSort(repositories: Repository[], sort?: Sort) {
+  return useMemo(() => {
+    if (!sort) return repositories;
 
-  const handleSort = (field: SortField) => {
-    setSort(prev => ({
-      field,
-      direction: prev?.field === field && prev.direction === 'desc' ? 'asc' : 'desc',
-      label: field
-    }));
-  };
-
-  const sortedItems = useMemo(() => {
-    if (!items || !sort) return items;
-
-    return [...items].sort((a, b) => {
-      const multiplier = sort.direction === 'asc' ? 1 : -1;
+    return [...repositories].sort((a, b) => {
+      const direction = sort.direction === 'asc' ? 1 : -1;
       
       switch (sort.field) {
         case 'name':
-          return multiplier * a.name.localeCompare(b.name);
+          return direction * a.name.localeCompare(b.name);
         case 'owner':
-          return multiplier * a.owner.login.localeCompare(b.owner.login);
+          return direction * a.owner.login.localeCompare(b.owner.login);
         case 'stars':
-          return multiplier * (a.stargazers_count - b.stargazers_count);
+          return direction * (a.stargazers_count - b.stargazers_count);
         case 'created':
-          return multiplier * (new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+          return direction * (new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
         default:
           return 0;
       }
     });
-  }, [items, sort]);
-
-  return {
-    sortedItems,
-    sort,
-    handleSort
-  };
+  }, [repositories, sort]);
 } 

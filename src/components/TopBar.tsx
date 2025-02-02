@@ -10,8 +10,8 @@ import { Tooltip } from '@/components/ui/tooltip'
 import { useSearchKeyboard } from '@/hooks/useKeyboardNavigation'
 import { useGlobalContext } from '@/contexts/GlobalContext'
 
-export function TopBar({ totalCount }: { totalCount?: number }) {
-  const { query, sort, setQuery, setSort } = useGlobalContext()
+export function TopBar() {
+  const { query, sort, totalCount, setQuery, setSort } = useGlobalContext()
   const [searchInput, setSearchInput] = useState(query)
   const debouncedSearch = useDebounce(searchInput)
   const searchInputRef = useRef<HTMLInputElement>(null)
