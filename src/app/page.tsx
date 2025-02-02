@@ -5,6 +5,7 @@ import { useGlobalContext } from '@/contexts/GlobalContext';
 import { useRepositories } from '@/hooks/useRepositories';
 import { RepositoryTable } from '@/components/RepositoryTable';
 import { TableSkeleton } from '@/components/TableSkeleton'
+import { EmptyState } from '@/components/EmptyState'
 
 export default function Home() {
   const { query, sort, page } = useGlobalContext();
@@ -19,6 +20,10 @@ export default function Home() {
         )}
         {isLoading ? (
           <TableSkeleton />
+        ) : !query ? (
+          <EmptyState type="initial" />
+        ) : data?.items?.length === 0 ? (
+          <EmptyState type="no-results" searchTerm={query} />
         ) : data?.items && (
           <RepositoryTable
             repositories={data.items}
