@@ -6,7 +6,6 @@ describe('TableSkeleton', () => {
   it('renders accessible loading table structure', () => {
     render(<TableSkeleton />, { wrapper: TestWrapper });
 
-    const table = screen.getByRole('table');
     const headers = screen.getAllByRole('columnheader');
     const expectedHeaders = ['Repository', 'Stars', 'Language', 'Updated'];
 
