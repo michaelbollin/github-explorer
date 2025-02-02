@@ -3,76 +3,32 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { Pagination } from '@/components/ui/pagination'
 import { SEARCH_CONFIG } from '@/config/constants'
 import { useGlobalContext } from '@/contexts/GlobalContext'
+import { useClientSort } from '@/hooks/useClientSort'
 
 export function RepositoryTable({ 
   repositories, 
-  total
 }: { 
   repositories: Repository[]
-  total: number 
 }) {
-  const { page, clientSort, setClientSort, setPage } = useGlobalContext()
-
-  const handleClientSort = (field: ClientSortField) => {
-    setClientSort({
-      field,
-      direction: clientSort?.field === field && clientSort.direction === 'desc' ? 'asc' : 'desc'
-    })
-  }
-
-  const effectiveTotal = Math.min(total, SEARCH_CONFIG.MAX_TOTAL_COUNT)
+  const { page, setPage, totalCount, clientSort } = useGlobalContext()
+  const effectiveTotal = Math.min(totalCount || 0, SEARCH_CONFIG.MAX_TOTAL_COUNT)
   const totalPages = Math.ceil(effectiveTotal / SEARCH_CONFIG.MAX_RESULTS)
+
+  const sortedRepositories = useClientSort(repositories, clientSort)
 
   return (
     <div>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead 
-              total={total} 
-              sortField="name"
-              sortDirection={clientSort?.field === 'name' ? clientSort.direction : undefined}
-              clientSortField={clientSort?.field}
-              clientSortDirection={clientSort?.direction}
-              onClientSort={handleClientSort}
-            >
-              Name
-            </TableHead>
-            <TableHead 
-              className="" 
-              total={total}
-              sortField="owner"
-              sortDirection={clientSort?.field === 'owner' ? clientSort.direction : undefined}
-              clientSortField={clientSort?.field}
-              clientSortDirection={clientSort?.direction}
-              onClientSort={handleClientSort}
-            >
-              Owner
-            </TableHead>
-            <TableHead 
-              className="text-right" 
-              total={total}
-              sortField="stars"
-              clientSortField={clientSort?.field}
-              clientSortDirection={clientSort?.direction}
-              onClientSort={handleClientSort}
-            >
-              Stars
-            </TableHead>
-            <TableHead 
-              className="" 
-              total={total}
-              sortField="created"
-              clientSortField={clientSort?.field}
-              clientSortDirection={clientSort?.direction}
-              onClientSort={handleClientSort}
-            >
-              Created
-            </TableHead>
+            <TableHead sortField="name">Name</TableHead>
+            <TableHead sortField="owner">Owner</TableHead>
+            <TableHead sortField="stars" className="text-right">Stars</TableHead>
+            <TableHead sortField="created">Created</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {repositories.map((repo) => (
+          {sortedRepositories.map((repo) => (
             <TableRow key={repo.id}>
               <TableCell>
                 <a

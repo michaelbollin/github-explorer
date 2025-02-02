@@ -1,5 +1,7 @@
 import type { TableProps, TableHeadProps, TableCellProps } from '@/types/table'
 import { ChevronDownIcon, ChevronUpIcon } from '@/components/icons/sort-icons'
+import { useGlobalContext } from '@/contexts/GlobalContext'
+import type { ClientSortField } from '@/types/github'
 import { SEARCH_CONFIG } from '@/config/constants'
 
 export function Table({ children }: TableProps) {
@@ -24,47 +26,49 @@ export function TableRow({ children }: TableProps) {
 
 export function TableHead({ 
   children, 
-  total,
+  className = '',
   sortField,
-  clientSortField,
-  clientSortDirection,
-  onClientSort,
   ...props 
-}: TableHeadProps) {
-  const shouldShowSort = total !== undefined && total <= SEARCH_CONFIG.MAX_RESULTS
-  const isCurrentField = clientSortField === sortField
+}: {
+  children: React.ReactNode
+  className?: string
+  sortField?: ClientSortField
+}) {
+  const { clientSort, setClientSort, totalCount } = useGlobalContext()
+  const isCurrentField = clientSort?.field === sortField
+  const canSort = totalCount !== undefined && totalCount <= SEARCH_CONFIG.MAX_TOTAL_COUNT
 
   return (
     <th 
-      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${className}`}
       {...props}
     >
-      <div 
-        className="flex items-center gap-1 cursor-pointer" 
-        onClick={() => onClientSort?.(sortField!)}
-      >
-        {children}
-        {shouldShowSort && (
-          <>
-            <ChevronUpIcon 
-              className={`w-5 h-5 ${
-                isCurrentField && clientSortDirection === 'asc' 
-                  ? 'text-black scale-110' 
-                  : 'text-gray-200'
-              }`}
-              aria-label="sort ascending"
-            />
-            <ChevronDownIcon 
-              className={`w-5 h-5 ${
-                isCurrentField && clientSortDirection === 'desc' 
-                  ? 'text-black scale-110' 
-                  : 'text-gray-200'
-              }`}
-              aria-label="sort descending"
-            />
-          </>
-        )}
-      </div>
+      {sortField && canSort ? (
+        <div 
+          className="flex items-center gap-1 cursor-pointer hover:text-gray-700 group" 
+          onClick={() => setClientSort({
+            field: sortField,
+            direction: isCurrentField && clientSort?.direction === 'desc' ? 'asc' : 'desc',
+            label: sortField
+          })}
+        >
+          {children}
+          <ChevronUpIcon 
+            className={`w-5 h-5 ${
+              isCurrentField && clientSort?.direction === 'asc' 
+                ? 'text-gray-900' 
+                : 'text-gray-400 group-hover:text-gray-500'
+            }`}
+          />
+          <ChevronDownIcon 
+            className={`w-5 h-5 ${
+              isCurrentField && clientSort?.direction === 'desc' 
+                ? 'text-gray-900' 
+                : 'text-gray-400 group-hover:text-gray-500'
+            }`}
+          />
+        </div>
+      ) : children}
     </th>
   )
 }

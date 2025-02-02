@@ -2,26 +2,35 @@
 
 import { createContext, useContext, ReactNode, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import type { Sort, SortField, ClientSort } from '@/types/github'
+import type { Sort, SortField } from '@/types/github'
 import { useRouter } from 'next/navigation'
 
 interface GlobalContextType {
   query: string
   page: number
   sort: Sort 
-  clientSort?: ClientSort
-  setClientSort: (sort: ClientSort) => void
+  clientSort?: Sort
+  totalCount?: number
+  setClientSort: (sort: Sort) => void
   setPage: (page: number) => void
   setQuery: (query: string) => void
   setSort: (sort: Sort) => void
+  setTotalCount: (count: number) => void
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined)
 
-export function GlobalProvider({ children, defaultSort }: { children: ReactNode, defaultSort: Sort }) {
+export function GlobalProvider({ 
+  children, 
+  defaultSort 
+}: { 
+  children: ReactNode
+  defaultSort: Sort 
+}) {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const [clientSort, setClientSort] = useState<ClientSort>()
+  const [clientSort, setClientSort] = useState<Sort>()
+  const [totalCount, setTotalCount] = useState<number>()
 
   const value = {
     query: searchParams.get('q') || '',
@@ -32,7 +41,9 @@ export function GlobalProvider({ children, defaultSort }: { children: ReactNode,
       label: defaultSort.label
     },
     clientSort,
+    totalCount,
     setClientSort,
+    setTotalCount,
     setPage: (page: number) => {
       const params = new URLSearchParams(searchParams)
       if (page > 1) params.set('page', page.toString())
@@ -50,6 +61,7 @@ export function GlobalProvider({ children, defaultSort }: { children: ReactNode,
       params.set('sort', sort.field)
       params.set('order', sort.direction)
       router.replace(`/?${params.toString()}`)
+      setClientSort(undefined)
     }
   }
 
