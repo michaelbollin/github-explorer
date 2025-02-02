@@ -52,7 +52,7 @@ export function TopBar({ onSearch, onOrderChange, initialOrder, totalCount }: To
               </div>
               {totalCount && totalCount > SEARCH_CONFIG.MAX_TOTAL_COUNT && (
                 <div className="flex-none w-8 flex items-center justify-center">
-                  <Tooltip content="GitHub returns only 4000 elements, please narrow down your query">
+                  <Tooltip content={`GitHub returns only ${SEARCH_CONFIG.MAX_TOTAL_COUNT} elements, please narrow down your query`}>
                     <InfoIcon className="h-5 w-5 text-gray-400" />
                   </Tooltip>
                 </div>
