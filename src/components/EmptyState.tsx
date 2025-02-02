@@ -1,5 +1,3 @@
-import { MagnifyingGlassIcon } from '@/components/icons/magnifying-glass-icon'
-
 interface EmptyStateProps {
   type: 'initial' | 'no-results'
   searchTerm?: string
