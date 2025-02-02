@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react'
+import { renderHook } from '@testing-library/react'
 import { useClientSort } from '@/hooks/useClientSort'
 
 const mockRepositories = [
@@ -32,75 +32,26 @@ const mockRepositories = [
 ]
 
 describe('useClientSort', () => {
-  it('returns unsorted items when no sort is applied', () => {
+  it('returns unsorted items when no sort is provided', () => {
     const { result } = renderHook(() => useClientSort(mockRepositories))
-    expect(result.current.sortedItems).toEqual(mockRepositories)
+    expect(result.current).toEqual(mockRepositories)
   })
 
-  it('sorts by name', () => {
-    const { result } = renderHook(() => useClientSort(mockRepositories))
-
-    act(() => {
-      result.current.handleSort('name')
-    })
-
-    expect(result.current.sortedItems?.[0].name).toBe('quantum-pizza-generator')
-    expect(result.current.sort).toEqual({ 
-      field: 'name', 
+  it('sorts by name descending', () => {
+    const { result } = renderHook(() => useClientSort(mockRepositories, {
+      field: 'name',
       direction: 'desc',
-      label: 'name' 
-    })
-
-    act(() => {
-      result.current.handleSort('name')
-    })
-
-    expect(result.current.sortedItems?.[0].name).toBe('dancing-goopher')
-    expect(result.current.sort).toEqual({ field: 'name', direction: 'asc', label: 'name' })
+      label: 'Name'
+    }))
+    expect(result.current[0].name).toBe('quantum-pizza-generator')
   })
 
-  it('sorts by stars', () => {
-    const { result } = renderHook(() => useClientSort(mockRepositories))
-
-    act(() => {
-      result.current.handleSort('stars')
-    })
-
-    expect(result.current.sortedItems?.[0].stargazers_count).toBe(20)
-    expect(result.current.sort).toEqual({ 
-      field: 'stars', 
+  it('sorts by stars descending', () => {
+    const { result } = renderHook(() => useClientSort(mockRepositories, {
+      field: 'stars',
       direction: 'desc',
-      label: 'stars' 
-    })
-  })
-
-  it('toggles sort direction when clicking same field', () => {
-    const { result } = renderHook(() => useClientSort(mockRepositories))
-
-    act(() => {
-      result.current.handleSort('owner')
-    })
-    expect(result.current.sort?.direction).toBe('desc')
-
-    act(() => {
-      result.current.handleSort('owner')
-    })
-    expect(result.current.sort?.direction).toBe('asc')
-  })
-
-  it('resets direction when changing sort field', () => {
-    const { result } = renderHook(() => useClientSort(mockRepositories))
-
-    act(() => {
-      result.current.handleSort('name')
-      result.current.handleSort('name') // toggle to asc
-      result.current.handleSort('stars') // new field
-    })
-
-    expect(result.current.sort).toEqual({ 
-      field: 'stars', 
-      direction: 'desc',
-      label: 'stars' 
-    })
+      label: 'Stars'
+    }))
+    expect(result.current[0].stargazers_count).toBe(20)
   })
 }) 

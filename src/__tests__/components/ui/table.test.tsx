@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
+import { TestWrapper } from '@/__tests__/setup/test-utils'
 
 describe('Table Components', () => {
   it('renders table structure correctly', () => {
@@ -15,7 +16,8 @@ describe('Table Components', () => {
             <TableCell>Cell</TableCell>
           </TableRow>
         </TableBody>
-      </Table>
+      </Table>,
+      { wrapper: TestWrapper }
     )
 
     expect(screen.getByRole('table')).toBeInTheDocument()
