@@ -17,8 +17,6 @@ export function TopBar() {
   const searchInputRef = useRef<HTMLInputElement>(null)
   const isInitialMount = useRef(true)
 
-  console.log(totalCount,"totalCount")
-
   useEffect(() => {
     if (isInitialMount.current) {
       setSearchInput(query)
