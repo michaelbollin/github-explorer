@@ -9,6 +9,7 @@ const customJestConfig: Config = {
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup/setup.ts'],
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: [
+    '<rootDir>/e2e/',
     '<rootDir>/node_modules/',
     '<rootDir>/src/__tests__/setup/'
   ]
