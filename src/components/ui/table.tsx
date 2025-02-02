@@ -24,11 +24,8 @@ export function TableRow({ children }: TableProps) {
 
 export function TableHead({ 
   children, 
-  className,
   total,
   sortField,
-  sortDirection,
-  onSort,
   clientSortField,
   clientSortDirection,
   onClientSort,

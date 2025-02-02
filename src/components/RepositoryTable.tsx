@@ -1,4 +1,4 @@
-import type { Repository, SortField } from '@/types/github'
+import type { Repository, ClientSortField } from '@/types/github'
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
 import { Pagination } from '@/components/ui/pagination'
 import { SEARCH_CONFIG } from '@/config/constants'
@@ -13,11 +13,10 @@ export function RepositoryTable({
 }) {
   const { page, clientSort, setClientSort, setPage } = useGlobalContext()
 
-  const handleClientSort = (field: SortField) => {
+  const handleClientSort = (field: ClientSortField) => {
     setClientSort({
       field,
-      direction: clientSort?.field === field && clientSort.direction === 'desc' ? 'asc' : 'desc',
-      label: field
+      direction: clientSort?.field === field && clientSort.direction === 'desc' ? 'asc' : 'desc'
     })
   }
 

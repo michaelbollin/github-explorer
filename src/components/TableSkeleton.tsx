@@ -1,4 +1,4 @@
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
+import { TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export function TableSkeleton() {

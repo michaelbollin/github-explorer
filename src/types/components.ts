@@ -1,25 +1,15 @@
-import type { OrderOption } from './github'
-import type { Repository } from './github'
-import type { ClientSortField } from './github'
+import type { Sort, Repository } from './github'
 
 export interface TopBarProps {
   onSearch: (query: string) => void
-  onOrderChange: (option: OrderOption) => void
-  initialOrder: OrderOption
+  onOrderChange: (order: Sort) => void
+  initialOrder: Sort
   totalCount?: number
 }
 
 export interface RepositoryTableProps {
   repositories: Repository[]
   total: number
-  sortField?: string
-  sortDirection?: 'asc' | 'desc'
-  onSort?: (field: string) => void
-  clientSortField?: ClientSortField
-  clientSortDirection?: 'asc' | 'desc'
-  onClientSort?: (field: ClientSortField) => void
-  currentPage: number
-  onPageChange: (page: number) => void
 }
 
 export interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {

@@ -1,12 +1,12 @@
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useCallback } from 'react'
-import type { OrderOption } from '@/types/github'
+import type { Sort } from '@/types/github'
 
 export function useSearch() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const setQuery = useCallback((query: string, order?: OrderOption, page?: number) => {
+  const setQuery = useCallback((query: string, order?: Sort, page?: number) => {
     const params = new URLSearchParams(searchParams)
     if (query) params.set('q', query)
     if (order) {
@@ -25,10 +25,10 @@ export function useSearch() {
     return searchParams.get('q') || ''
   }
 
-  const getOrder = (): OrderOption | undefined => {
+  const getOrder = (): Sort | undefined => {
     const field = searchParams.get('sort')
     const direction = searchParams.get('order')
-    return field && direction ? { field, direction } as OrderOption : undefined
+    return field && direction ? { field, direction } as Sort : undefined
   }
 
   const getPage = (): number => {
