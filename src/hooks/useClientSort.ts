@@ -1,13 +1,14 @@
 import { useState, useMemo } from 'react'
-import type { Repository, ClientSort, ClientSortField } from '@/types/github'
+import type { Repository, Sort, SortField } from '@/types/github'
 
 export function useClientSort(items: Repository[] | undefined) {
-  const [sort, setSort] = useState<ClientSort>();
+  const [sort, setSort] = useState<Sort>();
 
-  const handleSort = (field: ClientSortField) => {
+  const handleSort = (field: SortField) => {
     setSort(prev => ({
       field,
-      direction: prev?.field === field && prev.direction === 'desc' ? 'asc' : 'desc'
+      direction: prev?.field === field && prev.direction === 'desc' ? 'asc' : 'desc',
+      label: field
     }));
   };
 

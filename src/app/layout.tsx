@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import QueryProvider from '@/providers/QueryProvider';
+import { GlobalProvider } from "@/contexts/GlobalContext";
+import { DEFAULT_SERVER_SORT } from '@/config/constants'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>
-          {children}
-        </QueryProvider>
+        <GlobalProvider defaultSort={DEFAULT_SERVER_SORT}>
+          <QueryProvider>
+            {children}
+          </QueryProvider>
+        </GlobalProvider>
       </body>
     </html>
   );

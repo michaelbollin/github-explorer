@@ -1,13 +1,13 @@
 import { API_ENDPOINTS, SEARCH_CONFIG } from '@/config/constants';
-import type { SearchResponse, OrderOption } from '@/types/github';
+import type { Sort } from '@/types/github';
 
 export async function searchRepositories(
   query: string,
-  order: OrderOption,
+  sort: Sort,
   page: number,
 ) {
   const response = await fetch(
-    `${API_ENDPOINTS.SEARCH_REPOSITORIES}?q=${encodeURIComponent(query)}&sort=${order.field}&order=${order.direction}&per_page=${SEARCH_CONFIG.MAX_RESULTS}&page=${page}`,
+    `${API_ENDPOINTS.SEARCH_REPOSITORIES}?q=${encodeURIComponent(query)}&sort=${sort.field}&order=${sort.direction}&per_page=${SEARCH_CONFIG.MAX_RESULTS}&page=${page}`,
     {
       headers: {
         Accept: 'application/vnd.github.v3+json',
