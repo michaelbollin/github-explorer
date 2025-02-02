@@ -15,20 +15,24 @@ export function TopBar() {
   const [searchInput, setSearchInput] = useState(query)
   const debouncedSearch = useDebounce(searchInput)
   const searchInputRef = useRef<HTMLInputElement>(null)
+  const isInitialMount = useRef(true)
 
   console.log(totalCount,"totalCount")
 
   useEffect(() => {
-    if (query !== searchInput) {
+    if (isInitialMount.current) {
       setSearchInput(query)
+      isInitialMount.current = false
     }
   }, [query])
 
   useEffect(() => {
-    if (debouncedSearch.length >= 3 && debouncedSearch !== query) {
-      setQuery(debouncedSearch)
-    } else if (debouncedSearch.length === 0) {
-      clear()
+    if (!isInitialMount.current) {
+      if (debouncedSearch.length >= 3 && debouncedSearch !== query) {
+        setQuery(debouncedSearch)
+      } else if (debouncedSearch.length === 0) {
+        clear()
+      }
     }
   }, [debouncedSearch, query, setQuery, clear])
 
