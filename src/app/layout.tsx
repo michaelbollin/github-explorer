@@ -5,6 +5,7 @@ import "./globals.css";
 import QueryProvider from '@/providers/QueryProvider';
 import { GlobalProvider } from "@/contexts/GlobalContext";
 import { DEFAULT_SERVER_SORT } from '@/config/constants'
+import { ToastProvider } from '@/contexts/ToastContext'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,13 +32,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Suspense>
-          <GlobalProvider defaultSort={DEFAULT_SERVER_SORT}>
-            <QueryProvider>
-              {children}
-            </QueryProvider>
-          </GlobalProvider>
-        </Suspense>
+        <ToastProvider>
+          <Suspense>
+            <GlobalProvider defaultSort={DEFAULT_SERVER_SORT}>
+              <QueryProvider>
+                {children}
+              </QueryProvider>
+            </GlobalProvider>
+          </Suspense>
+        </ToastProvider>
       </body>
     </html>
   );
