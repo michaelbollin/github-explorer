@@ -30,8 +30,6 @@ interface GlobalProviderProps {
 export function GlobalProvider({ 
   children, 
   defaultSort,
-  defaultQuery = '',
-  defaultTotalCount = 0 
 }: GlobalProviderProps) {
   const searchParams = useSearchParams()
   const router = useRouter()
