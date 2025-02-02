@@ -19,12 +19,18 @@ export function TopBar() {
   console.log(totalCount,"totalCount")
 
   useEffect(() => {
-    if (debouncedSearch.length >= 3) {
+    if (query !== searchInput) {
+      setSearchInput(query)
+    }
+  }, [query])
+
+  useEffect(() => {
+    if (debouncedSearch.length >= 3 && debouncedSearch !== query) {
       setQuery(debouncedSearch)
     } else if (debouncedSearch.length === 0) {
       clear()
     }
-  }, [debouncedSearch, setQuery, clear])
+  }, [debouncedSearch, query, setQuery, clear])
 
   useSearchKeyboard({
     onFocus: () => searchInputRef.current?.focus()
