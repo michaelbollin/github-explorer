@@ -1,0 +1,12 @@
+{
+  "buildCommand": "yarn test && yarn test:e2e && yarn build",
+  "devCommand": "yarn dev",
+  "installCommand": "yarn install",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  }
+} 

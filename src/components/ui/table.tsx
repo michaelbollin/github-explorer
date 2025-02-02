@@ -1,4 +1,4 @@
-import type { TableProps, TableHeadProps, TableCellProps } from '@/types/table'
+import type { TableProps, TableCellProps } from '@/types/table'
 import { ChevronDownIcon, ChevronUpIcon } from '@/components/icons/sort-icons'
 import { useGlobalContext } from '@/contexts/GlobalContext'
 import type { ClientSortField } from '@/types/github'

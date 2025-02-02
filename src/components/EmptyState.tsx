@@ -1,5 +1,3 @@
-import { SearchIcon } from '@/components/icons/search-icon'
-
 interface EmptyStateProps {
   type: 'initial' | 'no-results'
   searchTerm?: string
@@ -8,20 +6,19 @@ interface EmptyStateProps {
 export function EmptyState({ type, searchTerm }: EmptyStateProps) {
   if (type === 'initial') {
     return (
-      <div className="text-center py-12">
-        <h3 className="mt-2 text-sm font-semibold text-gray-900">Let's go!</h3>
-        <p className="mt-1 text-sm text-gray-500">Start by searching for GitHub repositories above.<br />You can use <span className="font-medium">⌘K</span> to search for repositories.</p>
+      <div className="text-center">
+        <h2 className="text-lg font-semibold text-gray-900">
+          Start by searching for repositories you&apos;re interested in
+        </h2>
       </div>
     )
   }
 
   return (
-    <div className="text-center py-12">
-      <h3 className="mt-2 text-sm font-semibold text-gray-900">No repositories found</h3>
-      <p className="mt-1 text-sm text-gray-500">
-        No results found for "<span className="font-medium">{searchTerm}</span>".
-        <br />Try adjusting your search term.
-      </p>
+    <div className="text-center">
+      <h2 className="text-lg font-semibold text-gray-900">
+        No repositories found for &ldquo;{searchTerm}&rdquo;
+      </h2>
     </div>
   )
 } 

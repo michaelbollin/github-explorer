@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 
 export default function Home() {
   const { query, sort, page, setTotalCount } = useGlobalContext();
-  const { data, isLoading, error } = useRepositories(query, sort, page);
+  const { data, isLoading } = useRepositories(query, sort, page);
 
   useEffect(() => {
     if (data?.total_count) {
