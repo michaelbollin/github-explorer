@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useDebounce } from '@/hooks/useDebounce'
 import { SearchInput } from '@/components/ui/search-input'
 import type { OrderOption } from '@/types/github'
@@ -9,6 +9,7 @@ import type { TopBarProps } from '@/types/components'
 import { SEARCH_CONFIG } from '@/config/constants'
 import { InfoIcon } from '@/components/icons/info-icon'
 import { Tooltip } from '@/components/ui/tooltip'
+import { useSearchKeyboard } from '@/hooks/useKeyboardNavigation'
 
 const orderOptions: OrderOption[] = [
   { label: 'Most Popular', field: 'stars', direction: 'desc' },
@@ -21,6 +22,7 @@ export function TopBar({ onSearch, onOrderChange, initialOrder, totalCount }: To
   const { q } = useSearch()
   const [searchInput, setSearchInput] = useState(q)
   const debouncedSearch = useDebounce(searchInput)
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
   console.log(totalCount,"totalCount")
 
@@ -29,6 +31,10 @@ export function TopBar({ onSearch, onOrderChange, initialOrder, totalCount }: To
       onSearch(debouncedSearch)
     }
   }, [debouncedSearch, onSearch])
+
+  useSearchKeyboard({
+    onFocus: () => searchInputRef.current?.focus()
+  })
 
   return (
     <header className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
@@ -41,9 +47,10 @@ export function TopBar({ onSearch, onOrderChange, initialOrder, totalCount }: To
             <div className="flex items-center w-full">
               <div className="flex-1 min-w-0">
                 <SearchInput
+                  ref={searchInputRef}
                   id="search"
                   name="search"
-                  placeholder="Search repositories..."
+                  placeholder="Search repositories... (⌘K)"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
                   aria-label="Search GitHub repositories"
