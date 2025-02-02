@@ -1,4 +1,4 @@
-import type { Repository, ClientSortField } from '@/types/github'
+import type { Repository } from '@/types/github'
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'
 import { Pagination } from '@/components/ui/pagination'
 import { SEARCH_CONFIG } from '@/config/constants'
