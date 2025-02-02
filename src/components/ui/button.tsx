@@ -1,6 +1,4 @@
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline'
-}
+import { ButtonProps } from '@/types/ui'
 
 export function Button({ 
   children, 

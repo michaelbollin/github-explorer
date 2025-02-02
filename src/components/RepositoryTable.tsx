@@ -18,24 +18,31 @@ export function RepositoryTable({
 
   return (
     <div>
-      <Table>
+      <Table aria-label="GitHub repositories">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-1/2" sortField="name">Name</TableHead>
+            <TableHead 
+              sortField="name"
+              aria-sort={clientSort?.field === 'name' ? clientSort.direction : 'none'}
+              aria-label="Repository name column"
+            >
+              Name
+            </TableHead>
             <TableHead className="w-[15%]" sortField="owner">Owner</TableHead>
             <TableHead className="w-[20%]" sortField="stars">Stars</TableHead>
             <TableHead className="w-[15%]" sortField="created">Created</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sortedRepositories.map((repo) => (
-            <TableRow key={repo.id}>
+          {sortedRepositories.map((repo, index) => (
+            <TableRow key={repo.id} aria-rowindex={index + 1}>
               <TableCell>
                 <a
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:underline font-medium"
+                  aria-label={`${repo.name} repository`}
                 >
                   {repo.name}
                 </a>

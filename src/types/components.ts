@@ -21,3 +21,7 @@ export interface PaginationProps {
   totalPages: number
   onPageChange: (page: number) => void
 } 
+export interface EmptyStateProps {
+  type: 'initial' | 'no-results'
+  searchTerm?: string
+}

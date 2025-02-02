@@ -1,14 +1,5 @@
 import { useEffect } from 'react'
-
-interface PaginationKeyboardProps {
-  currentPage: number
-  totalPages: number
-  onPageChange: (page: number) => void
-}
-
-interface SearchKeyboardProps {
-  onFocus: () => void
-}
+import { PaginationKeyboardProps, SearchKeyboardProps } from '@/types/hooks'
 
 export function usePaginationKeyboard({ currentPage, totalPages, onPageChange }: PaginationKeyboardProps) {
   useEffect(() => {

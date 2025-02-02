@@ -31,7 +31,6 @@ export interface ClientSort {
   field: ClientSortField
   direction: SortDirection
 }
-
 export type SortField = ServerSortField | ClientSortField
 
 export interface Sort {

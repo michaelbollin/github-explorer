@@ -15,16 +15,24 @@ export function TopBar() {
   const [searchInput, setSearchInput] = useState(query)
   const debouncedSearch = useDebounce(searchInput)
   const searchInputRef = useRef<HTMLInputElement>(null)
-
-  console.log(totalCount,"totalCount")
+  const isInitialMount = useRef(true)
 
   useEffect(() => {
-    if (debouncedSearch.length >= 3) {
-      setQuery(debouncedSearch)
-    } else if (debouncedSearch.length === 0) {
-      clear()
+    if (isInitialMount.current) {
+      setSearchInput(query)
+      isInitialMount.current = false
     }
-  }, [debouncedSearch, setQuery, clear])
+  }, [query])
+
+  useEffect(() => {
+    if (!isInitialMount.current) {
+      if (debouncedSearch.length >= 3 && debouncedSearch !== query) {
+        setQuery(debouncedSearch)
+      } else if (debouncedSearch.length === 0) {
+        clear()
+      }
+    }
+  }, [debouncedSearch, query, setQuery, clear])
 
   useSearchKeyboard({
     onFocus: () => searchInputRef.current?.focus()
