@@ -39,7 +39,7 @@ export function RepositoryTable({
               Name
             </TableHead>
             <TableHead 
-              className="hidden md:table-cell" 
+              className="" 
               total={total}
               sortField="owner"
               sortDirection={clientSort?.field === 'owner' ? clientSort.direction : undefined}
@@ -50,7 +50,7 @@ export function RepositoryTable({
               Owner
             </TableHead>
             <TableHead 
-              className="text-right md:text-left" 
+              className="text-right" 
               total={total}
               sortField="stars"
               clientSortField={clientSort?.field}
@@ -60,7 +60,7 @@ export function RepositoryTable({
               Stars
             </TableHead>
             <TableHead 
-              className="hidden md:table-cell" 
+              className="" 
               total={total}
               sortField="created"
               clientSortField={clientSort?.field}
