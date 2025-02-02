@@ -4,19 +4,7 @@ import { createContext, useContext, ReactNode, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import type { Sort, SortField } from '@/types/github'
 import { useRouter } from 'next/navigation'
-
-interface GlobalContextType {
-  query: string
-  page: number
-  sort: Sort 
-  clientSort?: Sort
-  totalCount?: number
-  setClientSort: (sort: Sort) => void
-  setPage: (page: number) => void
-  setQuery: (query: string) => void
-  setSort: (sort: Sort) => void
-  setTotalCount: (count: number) => void
-}
+import type { GlobalContextType } from '@/types/context'
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined)
 
@@ -52,12 +40,25 @@ export function GlobalProvider({
     },
     setQuery: (query: string) => {
       const params = new URLSearchParams(searchParams)
+      const currentQuery = params.get('q')
+      
+      if (currentQuery !== query) {
+        params.delete('page')
+      }
+      
       if (query) params.set('q', query)
       else params.delete('q')
       router.replace(`/?${params.toString()}`)
     },
     setSort: (sort: Sort) => {
       const params = new URLSearchParams(searchParams)
+      const currentSort = params.get('sort')
+      const currentOrder = params.get('order')
+      
+      if (currentSort !== sort.field || currentOrder !== sort.direction) {
+        params.delete('page')
+      }
+      
       params.set('sort', sort.field)
       params.set('order', sort.direction)
       router.replace(`/?${params.toString()}`)
