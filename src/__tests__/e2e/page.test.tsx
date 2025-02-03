@@ -2,7 +2,7 @@ import { test as base, expect } from '@playwright/test'
 import { mockRepositories } from '../mocks/repositories'
 
 const test = base.extend({
-  page: async ({ page }, use) => {
+  page: async ({ page }, fn) => {
     await page.route('**/search/repositories**', async (route) => {
       await route.fulfill({
         status: 200,
@@ -14,7 +14,7 @@ const test = base.extend({
         }),
       })
     })
-    await use(page)
+    await fn(page)
   },
 })
 
@@ -69,72 +69,72 @@ test.describe('Repository Table', () => {
 // Placeholders for future tests
 
 test.describe('Pagination', () => {
-  test('shows pagination when results exceed page size', async ({ page }) => {
+  test('shows pagination when results exceed page size', async () => {
   })
 
-  test('disables previous button on first page', async ({ page }) => {
+  test('disables previous button on first page', async () => {
   })
 
-  test('disables next button on last page', async ({ page }) => {
+  test('disables next button on last page', async () => {
   })
 
-  test('keyboard navigation works (left/right arrows)', async ({ page }) => {
+  test('keyboard navigation works (left/right arrows)', async () => {
   })
 })
 
 test.describe('TopBar', () => {
-  test('keyboard shortcut ⌘K focuses search input', async ({ page }) => {
+  test('keyboard shortcut ⌘K focuses search input', async () => {
   })
 
-  test('debounces search input', async ({ page }) => {
+  test('debounces search input', async () => {
   })
 
-  test('shows info tooltip when results exceed GitHub limit', async ({ page }) => {
+  test('shows info tooltip when results exceed GitHub limit', async () => {
   })
 
-  test('server-side sorting changes update results', async ({ page }) => {
+  test('server-side sorting changes update results', async () => {
   })
 })
 
 test.describe('Error Handling', () => {
-  test('shows error message on API failure', async ({ page }) => {
+  test('shows error message on API failure', async () => {
   })
 
-  test('shows rate limit error when exceeded', async ({ page }) => {
+  test('shows rate limit error when exceeded', async () => {
   })
 })
 
 test.describe('Loading States', () => {
-  test('shows skeleton loader while fetching', async ({ page }) => {
+  test('shows skeleton loader while fetching', async () => {
   })
 
-  test('shows loading state during sort changes', async ({ page }) => {
+  test('shows loading state during sort changes', async () => {
   })
 })
 
 test.describe('Accessibility', () => {
-  test('maintains focus management', async ({ page }) => {
+  test('maintains focus management', async () => {
   })
 
-  test('has correct ARIA labels and roles', async ({ page }) => {
+  test('has correct ARIA labels and roles', async () => {
   })
 
-  test('is keyboard navigable', async ({ page }) => {
+  test('is keyboard navigable', async () => {
   })
 })
 
 test.describe('URL State Management', () => {
-  test('preserves search state in URL', async ({ page }) => {
+  test('preserves search state in URL', async () => {
   })
 
-  test('restores state from URL parameters', async ({ page }) => {
+  test('restores state from URL parameters', async () => {
   })
 })
 
 test.describe('Empty and Error States', () => {
-  test('shows appropriate empty state message', async ({ page }) => {
+  test('shows appropriate empty state message', async () => {
   })
 
-  test('handles no results gracefully', async ({ page }) => {
+  test('handles no results gracefully', async () => {
   })
 })
