@@ -2,6 +2,18 @@
 
 A web application for searching public GitHub repositories.
 
+## Overview
+
+Project includes:
+- Real-time search with Github API with public access
+- Sorting by stars and updated date (and more params on client side)
+- Pagination
+- Keyboard navigation
+- Skeleton loading state
+- Custom UI components
+- Error handling (General errors, Toast for API call errors, 404 page)
+- Testing with Jest and Playwright
+
 ## Installation
 
 ```bash
@@ -56,7 +68,7 @@ There is constants.ts file with the configuration of the search and sorting opti
    - Even if there are more results, Github truncates the result to 4000
    - Added tooltip to inform the user about the limit
 
-   **Sort criteria**
+3. **Sort criteria**
    - Github API does not support sorting by created date, name, and owner
    - Applied client-side sorting for now (only for small result sets)
 
