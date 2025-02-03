@@ -14,7 +14,7 @@ describe('useClientSort', () => {
       direction: 'desc',
       label: 'Name'
     }))
-    expect(result.current[0].name).toBe('TSCBot-py')
+    expect(result.current[0].name).toBe('gamma-repo')
   })
 
   it('sorts by stars descending', () => {

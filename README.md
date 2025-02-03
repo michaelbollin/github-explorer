@@ -79,6 +79,8 @@ There is constants.ts file with the configuration of the search and sorting opti
 2. Adding backend part (secret token embedding and rate limit increase)
 3. Adding redis on the backend to cache the results
 
+More at: https://github.com/michaelbollin/github-explorer/issues
+
 ## Contributing
 
 1. Create your feature branch (`git checkout -b feature/amazing-feature`)
