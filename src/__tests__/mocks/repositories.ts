@@ -1,8 +1,8 @@
 export const mockRepositories = [
   {
     id: 376502765,
-    name: 'TSCBot-py',
-    full_name: 'TechSupportCentral/TSCBot-py',
+    name: 'alpha-repo',
+    full_name: 'TechSupportCentral/alpha-repo',
     private: false,
     owner: {
       login: 'TechSupportCentral',
@@ -11,7 +11,7 @@ export const mockRepositories = [
       html_url: 'https://github.com/TechSupportCentral',
       type: 'Organization'
     },
-    html_url: 'https://github.com/TechSupportCentral/TSCBot-py',
+    html_url: 'https://github.com/TechSupportCentral/alpha-repo',
     description: "Tech Support Central's custom bot in Python",
     fork: false,
     created_at: '2021-06-13T09:50:17Z',
@@ -30,8 +30,8 @@ export const mockRepositories = [
   },
   {
     id: 351145539,
-    name: 'TSCBot-JS',
-    full_name: 'TechSupportCentral/TSCBot-JS',
+    name: 'gamma-repo',
+    full_name: 'TechSupportCentral/gamma-repo',
     private: false,
     owner: {
       login: 'TechSupportCentral',
@@ -40,7 +40,7 @@ export const mockRepositories = [
       html_url: 'https://github.com/TechSupportCentral',
       type: 'Organization'
     },
-    html_url: 'https://github.com/TechSupportCentral/TSCBot-JS',
+    html_url: 'https://github.com/TechSupportCentral/gamma-repo',
     description: "TechSupportCentral's custom bot in JS",
     fork: false,
     created_at: '2021-03-24T16:14:28Z',
